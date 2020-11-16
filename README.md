@@ -11,7 +11,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/really-noob/discord.py-bot-template/blob/master/Template%20Bot/main.py">
-    <img src="https://img.shields.io/badge/python-3.8|3.9-blue" alt="Python Version">
+    <img src="https://img.shields.io/badge/python-3.6|3.7|3.8|3.9-blue" alt="Python Version">
   </a>
   <a href="https://github.com/really-noob/discord.py-bot-template">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green" alt="Maintained? yes">
