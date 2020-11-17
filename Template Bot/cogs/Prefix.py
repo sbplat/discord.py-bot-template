@@ -21,12 +21,8 @@
 #SOFTWARE.
 
 import discord
-import json
 
 from discord.ext import commands
-from discord.ext.commands import has_permissions
-from discord.ext.commands.cooldowns import BucketType
-
 
 from utils.json_loader import *
 
@@ -49,10 +45,22 @@ class Prefix(commands.Cog):
         except KeyError:
             prefix = "-"
             
-        embed=discord.Embed(title="Prefix Commands", description=f"My prefix for this server is `{prefix}`. I will also respond if you mention me.", color=0x0dd9fd)
+        embed = discord.Embed(
+            title="Prefix Commands",
+            description=f"My prefix for this server is `{prefix}`. I will also respond if you mention me.",
+            color=0x0dd9fd
+            )
         embed.set_thumbnail(url=ctx.author.avatar_url)
-        embed.add_field(name="Changing your servers prefix", value=f"To change your servers prefix, run `{prefix}prefix change <newprefix>` (If it contains a space, you need to surround it with quotations)", inline=False)
-        embed.add_field(name="Resetting your servers prefix", value=f"To reset your servers prefix, run `{prefix}prefix reset` and your prefix will be changed back to `-`.", inline=False)
+        embed.add_field(
+            name="Changing your servers prefix",
+            value=f"To change your servers prefix, run `{prefix}prefix change <newprefix>` (If it contains a space, you need to surround it with quotations)",
+            inline=False
+            )
+        embed.add_field(
+            name="Resetting your servers prefix",
+            value=f"To reset your servers prefix, run `{prefix}prefix reset` and your prefix will be changed back to `-`.",
+            inline=False
+            )
         await ctx.send(embed=embed)
         
 
@@ -64,13 +72,17 @@ class Prefix(commands.Cog):
         """Change my prefix for this server."""
 
         if len(prefix) > 6:
-            return await ctx.send("The prefix must be less than 6 charachters in length.")
+            return await ctx.send(
+                "The prefix must be less than 6 charachters in length."
+            )
         
         prefixes = read_json("prefixes")
         prefixes[str(ctx.guild.id)] = prefix
         write_json(prefixes, "prefixes")
 
-        await ctx.send(f"Prefix changed to: {prefix}")
+        await ctx.send(
+            f"Prefix changed to: {prefix}"
+        )
 
     @prefix.command(aliases=['delete', 'reset', 'remove'], brief="Reset Prefix")
     @commands.guild_only()
@@ -84,11 +96,15 @@ class Prefix(commands.Cog):
         try:
             prefixes.pop(str(ctx.guild.id))
         except KeyError:
-            return await ctx.send("This servers prefix is already `-`.")
+            return await ctx.send(
+                "This servers prefix is already `-`."
+            )
 
         write_json(prefixes, "prefixes")
 
-        await ctx.send(f"Resetted this servers prefix back to `-`. If you ever want to change it, run `-prefix change <newprefix>`")
+        await ctx.send(
+            f"Resetted this servers prefix back to `-`. If you ever want to change it, run `-prefix change <newprefix>`"
+        )
         
 
 def setup(bot):

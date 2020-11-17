@@ -1,30 +1,28 @@
-#MIT License
+# MIT License
 
-#Copyright (c) 2020 really-noob
+# Copyright (c) 2020 really-noob
 
-#Permission is hereby granted, free of charge, to any person obtaining a copy
-#of this software and associated documentation files (the "Software"), to deal
-#in the Software without restriction, including without limitation the rights
-#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#copies of the Software, and to permit persons to whom the Software is
-#furnished to do so, subject to the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 
-#The above copyright notice and this permission notice shall be included in all
-#copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
 
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#SOFTWARE.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import discord
 
 from discord.ext import commands
-from discord.ext.commands import guild_only
-from discord.ext.commands.cooldowns import BucketType
 
 
 class General(commands.Cog):
@@ -39,7 +37,11 @@ class General(commands.Cog):
     async def ping(self, ctx):
         """Get the bots connection latency from Discord."""
 
-        embed = discord.Embed(title="Pong!", description=f"Connection Speed:\n__**{round(self.bot.latency * 1000)}ms**__", color=discord.Color.dark_blue()) #Creates the embed
+        embed = discord.Embed(
+            title="Pong!",
+            description=f"Connection Speed:\n__**{round(self.bot.latency * 1000)}ms**__",
+            color=discord.Color.dark_blue()
+        )  # Creates the embed
         await ctx.send(embed=embed)
 
 
@@ -49,14 +51,16 @@ class General(commands.Cog):
         """Echoes the message you say."""
 
         try:
-            await ctx.message.delete() #Deletes the message
-        except:
+            await ctx.message.delete()  # Deletes the message
+        except discord.HTTPException:
             pass
 
-        message = message.replace("@", "\u200B@\u200B").replace("&", "\u200B&\u200B").replace("#", "\u200B#\u200B")
-        #You can also use commands.clean_text to clean the message
+        message = message.replace("@", "\u200B@\u200B").replace("&", "\u200B&\u200B").replace("# ", "\u200B# \u200B")
+        # You can also use commands.clean_text to clean the message
 
-        await ctx.send(f"{ctx.author.mention}: {message}")
+        await ctx.send(
+            f"{ctx.author.mention}: {message}"
+            )
 
 
     @commands.command(aliases=['av'], brief="Avatar")
@@ -65,11 +69,14 @@ class General(commands.Cog):
     async def avatar(self, ctx, member: discord.Member = None):
         """Get a users avatar image."""
 
-        member = member or ctx.author #If user is not specified then the user is the person who invoked the command
+        member = member or ctx.author  # If user is not specified then the user is the person who invoked the command
 
-        avatar = member.avatar_url_as(static_format='png') #Gets the avatar url
-        embed=discord.Embed(title=str(member)) #Creates the embed
-        embed.set_image(url=avatar) #Puts the avatar in the embed
+        avatar = member.avatar_url_as(static_format='png')  # Gets the avatar url
+
+        embed=discord.Embed(
+            title=str(member)
+        )  # Creates the embed
+        embed.set_image(url=avatar)  # Puts the avatar in the embed
         await ctx.send(embed=embed)
 
 
@@ -80,7 +87,12 @@ class General(commands.Cog):
         """Get a members Discord id."""
 
         member = member or ctx.author
-        embed = discord.Embed(title=f"{member.display_name}'s ID:", description=f"{member.id}", color=0x0ec2e1) #You can also use discord colours
+
+        embed = discord.Embed(
+            title=f"{member.display_name}'s ID:",
+            description=f"{member.id}",
+            color=0x0ec2e1
+        )  # You can also use discord colours
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['github', 'code', 'sourcecode'], brief="Source Code")
@@ -88,9 +100,11 @@ class General(commands.Cog):
     async def source(self, ctx):
         """View my source code!"""
 
-        #You are not allowed to modify/remove this command due to the Github MIT LICENSE
-        #LICENSE: https://github.com/really-noob/discord.py-bot-template/blob/master/LICENSE
-        await ctx.send(f"{ctx.author.mention}, **{self.bot.user.mention}** is powered by the **discord.py-bot-template**, which is open source on GitHub. https://github.com/really-noob/discord.py-bot-template/")
+        # You are not allowed to modify/remove this command due to the Github MIT LICENSE
+        # LICENSE: https://github.com/really-noob/discord.py-bot-template/blob/master/LICENSE
+        await ctx.send(
+            f"{ctx.author.mention}, **{self.bot.user.mention}** is powered by the **discord.py-bot-template**, which is open source on GitHub. https://github.com/really-noob/discord.py-bot-template/"
+            )
 
     @commands.command(aliases=['join', 'inv', 'i'], brief="Invite Me")
     @commands.guild_only()
@@ -98,12 +112,21 @@ class General(commands.Cog):
     async def invite(self, ctx):
         """Invite me to another server!"""
 
-        #You are not allowed to modify/remove this command due to the Github MIT LICENSE
-        embed=discord.Embed(title="Invite", description=f"Want me in your own server? Click [here](https://discord.com/oauth2/authorize?client_id={self.bot.user.id}&scope=bot) to add it to your own server!\n\nAlso, don't forget to invite Corded Bot an awesome multipurpose bot!\n\nClick [here](https://discord.com/oauth2/authorize?client_id=736922979815915631&scope=bot&permissions=2146958847) to add it to your own server!\n\nThis bot is open source on GitHub. View it on Github with this link! https://github.com/really-noob/discord.py-bot-template", color=0x20d2df)
+        # You are not allowed to modify/remove this command due to the Github MIT LICENSE
+        embed = discord.Embed(
+            title="Invite",
+            description=f"Want me in your own server? Click [here](https://discord.com/oauth2/authorize?client_id={self.bot.user.id}&scope=bot) to add it to your own server!\n\n"\
+            "Also, don't forget to invite Corded Bot an awesome multipurpose bot!\n\n"\
+            "Click [here](https://discord.com/oauth2/authorize?client_id=736922979815915631&scope=bot&permissions=2146958847) to add it to your own server!\n\n"\
+            "This bot is open source on GitHub. View it on Github with this link! https://github.com/really-noob/discord.py-bot-template",
+            color=0x20d2df
+            )
         embed.set_author(name=f"{self.bot.user.name}", icon_url=f"{self.bot.user.avatar_url}")
         embed.set_thumbnail(url=f"{self.bot.user.avatar_url}")
         embed.set_footer(text=f"{self.bot.user}")
-        await ctx.send(content=f"{ctx.author.mention}", embed=embed)
+        await ctx.send(
+            content=f"{ctx.author.mention}", embed=embed
+        )
 
 def setup(bot):
     bot.add_cog(General(bot))

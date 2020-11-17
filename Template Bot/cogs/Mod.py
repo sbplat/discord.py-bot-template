@@ -1,30 +1,28 @@
-#MIT License
+# MIT License
 
-#Copyright (c) 2020 really-noob
+# Copyright (c) 2020 really-noob
 
-#Permission is hereby granted, free of charge, to any person obtaining a copy
-#of this software and associated documentation files (the "Software"), to deal
-#in the Software without restriction, including without limitation the rights
-#to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-#copies of the Software, and to permit persons to whom the Software is
-#furnished to do so, subject to the following conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 
-#The above copyright notice and this permission notice shall be included in all
-#copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
 
-#THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-#IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-#AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-#LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-#OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-#SOFTWARE.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 import discord
 
 from discord.ext import commands
-from discord.ext.commands import guild_only, has_permissions, bot_has_permissions
-from discord.ext.commands.cooldowns import BucketType
 
 
 class Mod(commands.Cog):
@@ -38,38 +36,50 @@ class Mod(commands.Cog):
     @commands.guild_only()
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user : discord.Member, *, reason: str = None):
+    async def kick(self, ctx, user: discord.Member, *, reason: str = None):
         """Kick someone from the server."""
 
         reason += f" Kicked by {ctx.author.display_name} (ID: {ctx.author.id})"
 
-        if ctx.author == user: #Checks if the person invoking the command is trying to kick themselves
-            return await ctx.send("Why are you trying to kick yourself?")
+        if ctx.author == user:  # Checks if the person invoking the command is trying to kick themselves
+            return await ctx.send(
+                "Why are you trying to kick yourself?"
+                )
 
         try:
-            await ctx.guild.kick(user, reason=reason) #Kicks the user out
-            await ctx.send(f"Kicked {user}!")
+            await ctx.guild.kick(user, reason=reason)  # Kicks the user out
+            await ctx.send(
+                f"Kicked {user}!"
+                )
         except discord.errors.Forbidden:
-            return await ctx.send(f"{ctx.author.mention}, There role is higher than mine so I cannot kick them.")
+            return await ctx.send(
+                f"{ctx.author.mention}, There role is higher than mine so I cannot kick them."
+                )
 
 
     @commands.command(aliases=['b'], brief="Ban")
     @commands.guild_only()
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user : discord.Member, *, reason: str = None):
+    async def ban(self, ctx, user: discord.Member, *, reason: str = None):
         """Ban someone from the server."""
 
         reason += f" Banned by {ctx.author.display_name} (ID: {ctx.author.id})"
-        if ctx.author == user: #Checks if the person invoking the command is trying to ban themselves
-            return await ctx.send("Why are you trying to ban yourself?")
+        if ctx.author == user:  # Checks if the person invoking the command is trying to ban themselves
+            return await ctx.send(
+                "Why are you trying to ban yourself?"
+            )
 
         try:
-            await ctx.guild.ban(user, reason=reason) #Bans the user
+            await ctx.guild.ban(user, reason=reason)  # Bans the user
         except discord.errors.Forbidden:
-            return await ctx.send("I dont have the ban members permission or their role is higher than mine.")
+            return await ctx.send(
+                "I dont have the ban members permission or their role is higher than mine."
+            )
 
-        await ctx.send(f"Banned {user}!")
+        await ctx.send(
+            f"Banned {user}!"
+        )
 
 
 def setup(bot):

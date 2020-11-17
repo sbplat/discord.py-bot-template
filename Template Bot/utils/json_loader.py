@@ -1,4 +1,4 @@
-#https://github.com/MenuDocs/Discord.PY-Tutorials/blob/Episode-10/utils/json_loader.py
+# https://github.com/MenuDocs/Discord.PY-Tutorials/blob/Episode-10/utils/json_loader.py
 
 import json
 
