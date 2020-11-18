@@ -36,25 +36,38 @@ class Errors(commands.Cog):
     async def on_command_error(self, ctx, error):
         error = getattr(error, "original", error)
 
-        ignored_errors = (commands.MissingRequiredArgument, commands.BadArgument, commands.TooManyArguments, commands.UserInputError)
+        ignored_errors = (
+            commands.MissingRequiredArgument,
+            commands.BadArgument,
+            commands.TooManyArguments,
+            commands.UserInputError,
+        )
 
         if isinstance(error, ignored_errors):
             return
 
         elif isinstance(error, commands.BotMissingPermissions):
-            missing_perms = [perm.replace('_', ' ').replace('guild', 'server').title() for perm in error.missing_perms]
+            missing_perms = [
+                perm.replace("_", " ").replace("guild", "server").title()
+                for perm in error.missing_perms
+            ]
             if len(missing_perms) >= 2:
-                missing_permissions = f'{"**, **".join(missing_perms[:-1])}, and {missing_perms[-1]}'
+                missing_permissions = (
+                    f'{"**, **".join(missing_perms[:-1])}, and {missing_perms[-1]}'
+                )
             else:
                 missing_permissions = " and ".join(missing_perms)
             try:
                 await ctx.send(
-                    f"{ctx.author.mention}, I need the {missing_permissions} permission(s) to execute that command."
+                    f"{ctx.author.mention}, I need the {missing_permissions} "
+                    "permission(s) to execute that command."
                 )
             except discord.errors.Forbidden:
                 await ctx.author.send(
-                    f"I dont have permissions to send messages there and I need the {missing_permissions} permission(s) to execute that command."
+                    "I dont have permissions to send messages there and I need "
+                    f"the {missing_permissions} permission(s) to execute that command."
                 )
+
 
 def setup(bot):
     bot.add_cog(Errors(bot))

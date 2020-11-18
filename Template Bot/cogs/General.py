@@ -40,12 +40,11 @@ class General(commands.Cog):
         embed = discord.Embed(
             title="Pong!",
             description=f"Connection Speed:\n__**{round(self.bot.latency * 1000)}ms**__",
-            color=discord.Color.dark_blue()
+            color=discord.Color.dark_blue(),
         )  # Creates the embed
         await ctx.send(embed=embed)
 
-
-    @commands.command(aliases=['echo'], brief="Echo")
+    @commands.command(aliases=["echo"], brief="Echo")
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def say(self, ctx, *, message):
         """Echoes the message you say."""
@@ -55,35 +54,35 @@ class General(commands.Cog):
         except discord.HTTPException:
             pass
 
-        message = message.replace("@", "\u200B@\u200B").replace("&", "\u200B&\u200B").replace("# ", "\u200B# \u200B")
+        message = (
+            message.replace("@", "\u200B@\u200B")
+            .replace("&", "\u200B&\u200B")
+            .replace("# ", "\u200B# \u200B")
+        )
         # You can also use commands.clean_text to clean the message
 
-        await ctx.send(
-            f"{ctx.author.mention}: {message}"
-            )
+        await ctx.send(f"{ctx.author.mention}: {message}")
 
-
-    @commands.command(aliases=['av'], brief="Avatar")
+    @commands.command(aliases=["av"], brief="Avatar")
     @commands.guild_only()
     @commands.cooldown(1, 2, commands.BucketType.user)
     async def avatar(self, ctx, member: discord.Member = None):
         """Get a users avatar image."""
 
-        member = member or ctx.author  # If user is not specified then the user is the person who invoked the command
+        member = (
+            member or ctx.author
+        )  # If user is not specified then the user is the person who invoked the command
 
-        avatar = member.avatar_url_as(static_format='png')  # Gets the avatar url
+        avatar = member.avatar_url_as(static_format="png")  # Gets the avatar url
 
-        embed=discord.Embed(
-            title=str(member)
-        )  # Creates the embed
+        embed = discord.Embed(title=str(member))  # Creates the embed
         embed.set_image(url=avatar)  # Puts the avatar in the embed
         await ctx.send(embed=embed)
 
-
-    @commands.command(brief="ID")
+    @commands.command(aliases=["id"], brief="ID")
     @commands.guild_only()
     @commands.cooldown(2, 2, commands.BucketType.user)
-    async def id(self, ctx, member: discord.Member = None):
+    async def userid(self, ctx, member: discord.Member = None):
         """Get a members Discord id."""
 
         member = member or ctx.author
@@ -91,11 +90,11 @@ class General(commands.Cog):
         embed = discord.Embed(
             title=f"{member.display_name}'s ID:",
             description=f"{member.id}",
-            color=0x0ec2e1
+            color=0x0EC2E1,
         )  # You can also use discord colours
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['github', 'code', 'sourcecode'], brief="Source Code")
+    @commands.command(aliases=["github", "code", "sourcecode"], brief="Source Code")
     @commands.guild_only()
     async def source(self, ctx):
         """View my source code!"""
@@ -103,30 +102,38 @@ class General(commands.Cog):
         # You are not allowed to modify/remove this command due to the Github MIT LICENSE
         # LICENSE: https://github.com/really-noob/discord.py-bot-template/blob/master/LICENSE
         await ctx.send(
-            f"{ctx.author.mention}, **{self.bot.user.mention}** is powered by the **discord.py-bot-template**, which is open source on GitHub. https://github.com/really-noob/discord.py-bot-template/"
-            )
+            f"{ctx.author.mention}, **{self.bot.user.mention}** is powered by "
+            "the **discord.py-bot-template**, which is open source on GitHub. "
+            "https://github.com/really-noob/discord.py-bot-template/"
+        )
 
-    @commands.command(aliases=['join', 'inv', 'i'], brief="Invite Me")
+    @commands.command(aliases=["join", "inv", "i"], brief="Invite Me")
     @commands.guild_only()
     @commands.cooldown(2, 2, commands.BucketType.user)
     async def invite(self, ctx):
         """Invite me to another server!"""
 
         # You are not allowed to modify/remove this command due to the Github MIT LICENSE
+        link = "https://discord.com/oauth2/authorize?client_id="
         embed = discord.Embed(
             title="Invite",
-            description=f"Want me in your own server? Click [here](https://discord.com/oauth2/authorize?client_id={self.bot.user.id}&scope=bot) to add it to your own server!\n\n"\
-            "Also, don't forget to invite Corded Bot an awesome multipurpose bot!\n\n"\
-            "Click [here](https://discord.com/oauth2/authorize?client_id=736922979815915631&scope=bot&permissions=2146958847) to add it to your own server!\n\n"\
-            "This bot is open source on GitHub. View it on Github with this link! https://github.com/really-noob/discord.py-bot-template",
-            color=0x20d2df
-            )
-        embed.set_author(name=f"{self.bot.user.name}", icon_url=f"{self.bot.user.avatar_url}")
+            description="Want me in your own server? "
+            f"Click [here]({link}{self.bot.user.id}&scope=bot) "
+            "to add it to your own server!\n\n"
+            "Also, don't forget to invite Corded Bot an awesome multipurpose bot!\n\n"
+            f"Click [here]({link}736922979815915631&scope=bot&permissions=2146958847) "
+            "to add it to your own server!\n\n"
+            "This bot is open source on GitHub. View it on Github with this link! "
+            "https://github.com/really-noob/discord.py-bot-template",
+            color=0x20D2DF,
+        )
+        embed.set_author(
+            name=f"{self.bot.user.name}", icon_url=f"{self.bot.user.avatar_url}"
+        )
         embed.set_thumbnail(url=f"{self.bot.user.avatar_url}")
         embed.set_footer(text=f"{self.bot.user}")
-        await ctx.send(
-            content=f"{ctx.author.mention}", embed=embed
-        )
+        await ctx.send(content=f"{ctx.author.mention}", embed=embed)
+
 
 def setup(bot):
     bot.add_cog(General(bot))

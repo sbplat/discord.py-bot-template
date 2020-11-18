@@ -32,54 +32,64 @@ class Mod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['k'], brief="Kick")
+    @commands.command(aliases=["k"], brief="Kick")
     @commands.guild_only()
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, user: discord.Member, *, reason: str = None):
+    async def kick(self, ctx, user: discord.Member):
         """Kick someone from the server."""
 
-        reason += f" Kicked by {ctx.author.display_name} (ID: {ctx.author.id})"
-
-        if ctx.author == user:  # Checks if the person invoking the command is trying to kick themselves
+        reason = " ".join(
+            ctx.message.content.split()[2:]
+        )  # Gets the reason if one is specified
+        reason += f" Banned by {ctx.author.display_name} (ID: {ctx.author.id})"
+        if len(reason) > 512:
             return await ctx.send(
-                "Why are you trying to kick yourself?"
-                )
+                "Your reason is too long. Your reason must be "
+                f"**{len(reason) - 512}** characters shorter."
+            )
+
+        if (
+            ctx.author == user
+        ):  # Checks if the person invoking the command is trying to kick themselves
+            return await ctx.send("Why are you trying to kick yourself?")
 
         try:
             await ctx.guild.kick(user, reason=reason)  # Kicks the user out
-            await ctx.send(
-                f"Kicked {user}!"
-                )
+            await ctx.send(f"Kicked {user.mention}!")
         except discord.errors.Forbidden:
             return await ctx.send(
-                f"{ctx.author.mention}, There role is higher than mine so I cannot kick them."
-                )
+                f"{ctx.author.mention}, There role is higher than mine "
+                "so I cannot kick them."
+            )
 
-
-    @commands.command(aliases=['b'], brief="Ban")
+    @commands.command(aliases=["b"], brief="Ban")
     @commands.guild_only()
     @commands.bot_has_permissions(ban_members=True)
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, user: discord.Member, *, reason: str = None):
+    async def ban(self, ctx, user: discord.Member):
         """Ban someone from the server."""
-
+        reason = " ".join(ctx.message.content.split()[2:])
         reason += f" Banned by {ctx.author.display_name} (ID: {ctx.author.id})"
-        if ctx.author == user:  # Checks if the person invoking the command is trying to ban themselves
+        if len(reason) > 512:
             return await ctx.send(
-                "Why are you trying to ban yourself?"
+                "Your reason is too long. Your reason must be "
+                f"**{len(reason) - 512}** characters shorter."
             )
+
+        if (
+            ctx.author == user
+        ):  # Checks if the person invoking the command is trying to ban themselves
+            return await ctx.send("Why are you trying to ban yourself?")
 
         try:
             await ctx.guild.ban(user, reason=reason)  # Bans the user
+            await ctx.send(f"Banned {user.mention}!")
         except discord.errors.Forbidden:
             return await ctx.send(
-                "I dont have the ban members permission or their role is higher than mine."
+                "I dont have the ban members permission or their role "
+                "is higher than mine."
             )
-
-        await ctx.send(
-            f"Banned {user}!"
-        )
 
 
 def setup(bot):
