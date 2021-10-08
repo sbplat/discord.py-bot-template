@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2020 really-noob
+# Copyright (c) 2020 sbplat
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -77,7 +77,7 @@ class Prefix(commands.Cog):
 
         if len(prefix) > 6:
             return await ctx.send(
-                "The prefix must be less than 6 charachters in length."
+                "The prefix must be less than 6 characters in length."
             )
 
         prefixes = read_json("prefixes")
@@ -103,7 +103,7 @@ class Prefix(commands.Cog):
         write_json(prefixes, "prefixes")
 
         await ctx.send(
-            "Resetted this servers prefix back to `-`. "
+            "Reverted this servers prefix back to `-`. "
             "If you ever want to change it, run `-prefix change <newprefix>`"
         )
 

@@ -1,6 +1,6 @@
 # MIT License
 
-# Copyright (c) 2020 really-noob
+# Copyright (c) 2020 sbplat
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -99,12 +99,10 @@ class General(commands.Cog):
     async def source(self, ctx):
         """View my source code!"""
 
-        # You are not allowed to modify/remove this command due to the Github MIT LICENSE
-        # LICENSE: https://github.com/really-noob/discord.py-bot-template/blob/master/LICENSE
         await ctx.send(
             f"{ctx.author.mention}, **{self.bot.user.mention}** is powered by "
             "the **discord.py-bot-template**, which is open source on GitHub. "
-            "https://github.com/really-noob/discord.py-bot-template/"
+            "https://github.com/sbplat/discord.py-bot-template/"
         )
 
     @commands.command(aliases=["join", "inv", "i"], brief="Invite Me")
@@ -113,18 +111,17 @@ class General(commands.Cog):
     async def invite(self, ctx):
         """Invite me to another server!"""
 
-        # You are not allowed to modify/remove this command due to the Github MIT LICENSE
         link = "https://discord.com/oauth2/authorize?client_id="
         embed = discord.Embed(
             title="Invite",
             description="Want me in your own server? "
             f"Click [here]({link}{self.bot.user.id}&scope=bot) "
             "to add it to your own server!\n\n"
-            "Also, don't forget to invite Corded Bot an awesome multipurpose bot!\n\n"
+            "Also, don't forget to invite Corded Bot - an awesome multipurpose bot!\n\n"
             f"Click [here]({link}736922979815915631&scope=bot&permissions=2146958847) "
             "to add it to your own server!\n\n"
             "This bot is open source on GitHub. View it on Github with this link! "
-            "https://github.com/really-noob/discord.py-bot-template",
+            "https://github.com/sbplat/discord.py-bot-template",
             color=0x20D2DF,
         )
         embed.set_author(

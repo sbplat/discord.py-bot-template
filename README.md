@@ -10,17 +10,17 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://github.com/really-noob/discord.py-bot-template/blob/master/Template%20Bot/main.py">
+  <a href="https://github.com/sbplat/discord.py-bot-template/blob/master/Template%20Bot/main.py">
     <img src="https://img.shields.io/badge/python-3.6|3.7|3.8|3.9-blue" alt="Python Version">
   </a>
-  <a href="https://github.com/really-noob/discord.py-bot-template">
+  <a href="https://github.com/sbplat/discord.py-bot-template">
     <img src="https://img.shields.io/badge/Maintained%3F-yes-green" alt="Maintained? yes">
   </a>
-  <a href="https://github.com/really-noob/discord.py-bot-template/commits/master">
-    <img src="https://img.shields.io/github/last-commit/really-noob/discord.py-bot-template" alt="Last GitHub Commit">
+  <a href="https://github.com/sbplat/discord.py-bot-template/commits/master">
+    <img src="https://img.shields.io/github/last-commit/sbplat/discord.py-bot-template" alt="Last GitHub Commit">
   </a>
-  <a href="https://github.com/really-noob/discord.py-bot-template/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/really-noob/discord.py-bot-template" alt="GitHub LICENSE">
+  <a href="https://github.com/sbplat/discord.py-bot-template/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/sbplat/discord.py-bot-template" alt="GitHub LICENSE">
   </a>
 </p>
 
@@ -28,9 +28,9 @@
  - [Python](https://www.python.org/downloads/) 3.6 or up
  - Familiar with [Python](https://www.python.org/) and some familiarity with the [discord.py](https://discordpy.readthedocs.io/en/stable/index.html) library
  - Have a [Discord](https://discord.com/) account
- 
+
 # Setting up the bot
-1. Download this [repository](https://github.com/really-noob/discord.py-bot-template) and extract it. All the bot files are in the `Template Bot` folder.
+1. Download this [repository](https://github.com/sbplat/discord.py-bot-template) and extract it. All the bot files are in the `Template Bot` folder.
 ![Download Bot](/images/Download.PNG)
 2. Visit the [Discord Developer Portal here](https://discord.com/developers/applications).
 3. Create a new application and give it a name (this is not the bots name).
