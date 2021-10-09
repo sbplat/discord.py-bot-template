@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/python-3.6|3.7|3.8|3.9-blue" alt="Python Version">
   </a>
   <a href="https://github.com/sbplat/discord.py-bot-template">
-    <img src="https://img.shields.io/badge/Maintained%3F-yes-green" alt="Maintained? no">
+    <img src="https://img.shields.io/badge/Maintained%3F-no-red" alt="Maintained? no">
   </a>
   <a href="https://github.com/sbplat/discord.py-bot-template/commits/master">
     <img src="https://img.shields.io/github/last-commit/sbplat/discord.py-bot-template" alt="Last GitHub Commit">
