@@ -59,7 +59,7 @@ class Mod(commands.Cog):
             await ctx.send(f"Kicked {user.mention}!")
         except discord.errors.Forbidden:
             return await ctx.send(
-                f"{ctx.author.mention}, There role is higher than mine "
+                f"{ctx.author.mention}, Their role is higher than mine "
                 "so I cannot kick them."
             )
 
